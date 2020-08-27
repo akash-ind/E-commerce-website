@@ -1,0 +1,37 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Process Prints
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="nofollow, noindex" >
+{% endblock %}
+{% block login %}
+<a class="nav-item nav-link btn btn-outline-primary" href="{% url 'serve:logout' %}">Logout</a>
+{% endblock %}
+{% block about-us %}
+<table class="table">
+	<thead class="thead-light">
+		<tr>
+			<th>Document Name</th>
+			<th>Download</th>
+			<th>Information</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for ob in obs %}
+		<tr>
+			<th>{{ob.name_of_file}}</th>
+			<th><a href="{% url 'serve:download-file' id=ob.id %}" class="btn btn-outline-primary">Download Print</a></th>
+			<th><a href="{% url 'serve:download-config' id=ob.id %}" class="btn btn-outline-primary">Dowload Info</a></th>
+			<th><a href="{% url 'serve:deletefile' id=ob.id %}" class="btn btn-outline-primary">Delete File</a></th>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="row">
+	<div class="col-auto justify-content-center">
+		<a href="{% url 'serve:remove-unprocessed'%}" class="btn btn-outline-danger">Delete unprocessed prints</a>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Process Order
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="nofollow, noindex" >
+{% endblock %}
+{% block about-us %}
+<div class="row justify-content-center">
+	<div class="col">
+		<p><b>Username:<b> {{ob.user.name}}</p>
+		<p><b>Address:</b> {{ob.address}}</p>
+		<p><b>Phone No:</b> {{ob.user.phone_no}}
+		<p><b>Products:</b></p>
+		<div class="ml-5">
+			<p>Category= {{ob.category}}</p>
+			<p>Expected Price= {{ob.expected_price}}</p>
+			<p>Brand= {{ob.brand}}</p>
+			<p>Count= {{ob.number}}</p>
+		</div>
+		<p><b>Additional Info</b> {{ob.additional_info}}</p>
+		<p><b>Method:</b> Cash</p>
+		<form method="POST" action="{% url 'serve:cancel-custom' %}">
+			{% csrf_token %}
+			<input type="hidden" name="id" value="{{ob.id}}" />
+			<button class="btn btn-outline-danger" type="submit">Cancel</button>
+		</form>
+		<a href="{% url 'serve:delivered' id=ob.id %}" class="btn btn-danger">Delivered</a>
+</div>
+{% endblock %}

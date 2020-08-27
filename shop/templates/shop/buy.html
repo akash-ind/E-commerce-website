@@ -1,0 +1,37 @@
+{% extends 'html/init.html' %}
+{% block title %}
+{{ob.name}}
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Buy your Product" >
+{% endblock %}
+{% block features %}
+	<div class="row">
+		<div class="col"><p class="text-danger text-center">Specify your preferred brand or leave it blank for us to give you best in the range.</p>
+		</div>		
+	</div>
+	<div class="card-deck">
+		<div class="card">
+			<img src="{{ob.product_image.url}}" class="img-fluid card-img-top" alt="{{ob.name}}" />
+			<div class="card-body">
+				<h5 class="card-title">{{ob.name}}</h5>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-text mb-2">Price: {{ob.prices}}</h5>
+				<h5 class="card-title mb-2">Description</h5>
+				<p class="card-text">{{ob.description}}</p>
+				<form action="{% url 'shop:add-in-cart' %}" method="POST">
+					{% csrf_token %}
+					<label for="count">Number</label>
+					<input type="number" name="count" value=1 class="form-control" required />
+					<label for="brand">Brand</label>
+					<input type="text" name="brand" id="brand" class="form-control" />
+					<input type="hidden" name="type" value="S">
+					<input type="hidden" name="product_id" value="{{ob.p_id}}">
+				<button class="btn btn-outline-primary card-link" type="submit">Add to Cart</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}

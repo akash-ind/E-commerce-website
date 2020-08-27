@@ -1,0 +1,75 @@
+{% extends 'html/init.html' %}
+{% block title %}
+	{{ user.name }}
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Your Account" >
+{% endblock %}
+{% block about-us %}
+<nav class="navbar-nav navbar-expand-lg bg-dark text-light">
+	<a class="navbar-brand ml-lg-3 ml-sm-1">{{user.name}}</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#logout" aria-expanded="false" aria-label="toggle-navigation"><span class="navbar-toggler-icon"></span></button>
+	<div class="collapse navbar-collapse justify-content-end">
+		<nav class="navbar navbar-nav">
+			<a class="btn btn-outline-primary" href="{% url 'login:logout' %}">Logout</a>
+		</nav>
+	</div>
+</nav>
+{% endblock %}
+{% block features %}
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-sm-12">
+			<div class="card-body">
+				<h3 class="text-success card-title mb-2">Your Orders as placed:</h3>
+				{% if orders %}
+				{% for order in orders %}
+				<div class="group">
+					{% for pro in order.shop_order.all %}
+					<p class="card-title">{{pro.product.name}}</p>
+					{% endfor %}
+					{% for pri in order.print_order.all %}
+					<p class="card-title">{{pri.name_of_file}}</p>
+					{% endfor %}
+			 		<p class="card-text">Order Id: {{order.order_id}}</p>
+			 		<p class="card-text">Price: {{order.price}}</p>
+			 		<p class="card-text">Method: {{order.method}}</p>
+					<p class="card-text">{{order.date}}</p>
+					<form method="POST" action="{% url 'shop:cancel-order' %}">
+						{% csrf_token %}
+						<input type="hidden" name="order_id" value="{{order.order_id}}" />
+						{% if order.delivered is False %}
+						{% if order.active is True %}
+						<button class="btn btn-outline-dark card-link" type="submit">Cancel</button>
+						{% endif %}
+						{% endif %}
+					</form>
+					<small class="card-text">
+						{% if order.not_responding is True %}
+						You didn't respond to our calls. Your order has been cancelled.
+						{% elif order.active is False %}
+						{% if order.delivered is False %}
+						Your order has been delivered successfully.
+						{% else %}
+						Your order was not correctly processed.
+						{% endif %}
+						{% else %}
+						{% if order.delivered is False %}
+						Your order will be delivered soon.
+						{% else %}
+						You cancelled the transaction.
+						{% endif %} 
+						{% endif %}
+					</small> 
+				</div>
+				<hr class="bg-primary">
+				{% endfor %}
+				{% else %}
+				<h3 class="card-text">No orders placed</h3>
+				<a class="card-link" href="{% url 'shop:show' %}">Buy Now</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

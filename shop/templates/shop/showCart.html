@@ -1,0 +1,70 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Cart
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Your Cart" >
+{% endblock %}
+{% block features %}
+{% load multiply %}
+<div class="row"> 
+	<div class="col-lg-10 col-sm-12">
+		<table class="table table-hover table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Product Name</th>
+					<th>Number</th>
+					<th>Price Per Piece</th>
+					<th>Total Price</th>
+					<th>Remove Item</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products %}
+				<tr>
+					<td><a href="{% url 'shop:product' id=product.product.p_id %}" class="page-link">{{product.product.name}}</a></td>
+					<td>{{product.count}}</td>
+					<td>{{product.product.prices}}</td>
+					<td>{% mult product.count product.product.prices %}</td>
+					<td> <form method="POST" action="{% url 'shop:removing-from-cart' %}">
+						{% csrf_token %}
+						<input type="hidden" value="{{product.id}}" name="product_id" />
+						<input type="hidden" name="type" value="S" />
+						<button type="Submit" class="page-link"><small class="small">Remove</small></button>
+					</form></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<table class="table table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th>Document Name</th>
+					<th>Pages</th>
+					<th>Total Price</th>
+					<th>Remove Item</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for doc in print_doc %}
+				<tr>
+					<td>{{doc.name_of_file}}</td>
+					<td>{{doc.pages}}</td>
+					<td>{{doc.price}}</td>
+					<td><form method="POST" action="{% url 'shop:removing-from-cart' %}">
+						{% csrf_token %}
+						<input type="hidden" value="{{doc.id}}" name="print_id" />
+						<input type="hidden" name="type" value="P" />
+						<button type="Submit" class="page-link"><small class="small">Remove</small></button>
+					</form></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-lg-10 col-sm-12">
+		<h4 class="text-center">Price to Pay: {{price}}</p>
+	</div>
+</div>
+<a href="{% url 'shop:checkout' %}" class="btn btn-outline-primary">Checkout</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Login
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Login into your account" >
+{% endblock %}
+{% block features %}
+<div class="row justify-content-center">
+<div class="col-sm-8 col-md-6">	
+	<div class="card">
+		<div class="card-body">
+			<form method="POST" action="{% url 'login:login' %}">
+				{% csrf_token %}
+				{% include 'html/form-template.html' with form=form %}
+				{% if warning %}
+					<small class="text-muted card-text">{{warning}}</small><br />
+				{% endif %}
+				<small class="text-primary card-text">
+					<a href="{% url 'login:reset' %}">Forgot Password</a>
+				</small>
+				<button class="btn btn-outline-primary text-center card-link">Login</button>
+				<br />
+				<small class="text-primary card-text">
+					<a href="{% url 'login:register' %}">New User? Register</a>					
+				</small>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

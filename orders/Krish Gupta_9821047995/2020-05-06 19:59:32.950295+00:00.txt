@@ -1,0 +1,7 @@
+User: Krish Gupta
+rz-225/298 4 west sagarpur New Delhi Delhi
+brand: somthnng
+type: Stationery
+copies: 10
+Expected Price: 10
+Additional Info: heyy tu 

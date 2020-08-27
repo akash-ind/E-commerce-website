@@ -1,0 +1,21 @@
+{% extends 'html/init.html' %}
+{% block title %}
+{{order.Product_name}}
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Review your Order" >
+{% endblock %}
+{% block features %}
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-sm-12">
+			<p><span class="font-weight-bolder">Name: </span>{{order.Product_name}}</p>
+			<p><span class="font-weight-bolder">Product id: </span>{{order.p_id}}</p>
+			<p><span class="font-weight-bolder">Date of purchase: </span>{{order.buy_date|date:"c"}}
+			{% if order.active is true}
+			<a class="btn btn-danger" href="{% url 'login:cancel_product' id=order.p_id %}">Cancel</button>
+			{% else %}
+			<a href="{% url 'login:return' id=order.p_id %}">Return</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

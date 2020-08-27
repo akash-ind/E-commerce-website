@@ -1,0 +1,88 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Confirm Order
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Confirm and checkout your order" >
+{% endblock %}
+{% block about-us %}
+{% load multiply %}
+<div class="row">
+	<div class="col">
+		<p class="text-danger"> Delivery done only for values above Rs.50.</p>
+	</div>
+</div>
+<form method="POST" action="{% url 'shop:checkout' %}">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-12">
+			<h3>Choose the following Address or Add New:</h3>
+		</div>
+	</div>
+	{% for ob in address %}
+	<div class="row">
+		<div class="col-10">
+			<div class="form-check">
+				<input class="form-check-input" name="add_id" value="{{ob.id}}" type="radio" id="address" checked>
+				<label for="address" class="form-check-label">{{ob.house_no}} {{ob.street}} {{ob.locality}} {{ob.city}} {{ob.state}}</label>
+			</div>			
+		</div>
+	</div>
+	{% endfor %}
+	<hr/>
+	<a class="btn btn-outline-primary" href="{% url 'login:add_address' %}">Add Address</a>
+	<table class="table my-5">
+		<thead class="thead-dark">
+			<tr>
+				<th>Product</th>
+				<th>Number</th>
+				<th>Price</th>
+				<th>Total Price</th>
+			</tr>
+		</thead>
+		{% for p in stationery %}
+		<tr>
+			<td>{{p.product.name}}</td>
+			<td>{{p.count}}</td>
+			<td>{{p.product.prices}}</td>
+			<td>{%mult p.product.prices p.count %}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>Document</th>
+				<th>Pages</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		{% for pr in print_doc %}
+		<tr>
+			<td>{{pr.name_of_file}}</td>
+			<td>{{pr.pages}}</td>
+			<td>{{pr.price}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<div class="row">
+		<div class="col">
+			<h4>Select Method</h4>
+			<div class="form-check">
+				<input type="radio" name="method" id="method1" value="online" class="form-check-input disabled" disabled />
+				<label class="form-check-label" id="method1">Online</label>
+			</div>
+			<div class="form-check">
+				<input type="radio" name="method" id="method2" value="cash" class="form-check-input" checked />
+				<label class="form-check-label" id="method2">Cash On Delivery</label>				
+			</div>
+	<div class="row">
+		<div class="col">
+			<h3>Pay: {{price}}</h3>
+		</div>
+	</div>
+	<div class="text-center">
+		<button class="btn btn-outline-success" type="submit">Buy Now</button>
+	</div>
+</form>
+{% endblock %}

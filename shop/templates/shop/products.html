@@ -1,0 +1,77 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Products
+{% endblock %}
+{% block features %}
+{% include 'shop/information.html' %}
+<div class="row">
+	<div class="col justify-content-center">
+		<p class="text-danger text-center">*Image for representation purpose only</p>
+	</div>
+</div>
+<div class="row row-cols-md-4 row-cols-sm-1">
+	{% for ob in obs %}
+	<div class="col-auto mb-2">
+		<div class="card h-100">
+			<img src="{{ ob.product_image.url }}" class="card-img-top img-fluid" alt="{{ob.name}}"/>
+			<div class="card-body">
+				<h5 class="card-title">{{ob.name}}</h5>
+				<p class="card-text">Price: {{ob.prices}}</p>
+				<a href="{% url 'shop:product' id=ob.p_id %}" class="btn btn-primary">Buy</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<hr class="mb-2" />
+<div class="text-center">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#specific">Want Something Specific</button>
+</div>
+<div class="modal fade" id="specific" role="dialog" aria-hidden="true" aria-labelledby="specificlabel"
+tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Specific Product</h4>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'shop:new_product' %}" method="POST">
+					{% csrf_token %}
+					{% include 'html/form-template.html' with form=form %}
+					<!--<div class="form-group">
+						<label for="brand">Brand Name:</label>
+						<input type="text" name="brand" id="brand" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="type">Type:</label>
+						<input type="text" name="type" id="type" readonly class="form-control-plaintext" value="{{cat}}">
+					</div>
+					<div class="form-group">
+						<label for="copies">Number of Product</label>
+						<input type="number" name="copies" id="copies" min="1" class="form-control">	
+					</div>
+					<div class="form-group">
+						<label for="price">Expected Price:</label>
+						<input type="number" name="price" id="price" class="form-control" min="1">
+					</div>
+					<div class="form-group">
+						<label for="add-info" >Additional Info:</label>
+						<textarea class="form-control" id="add-info" name="add-info" rows="2"></textarea>
+					</div>-->
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="Submit">Submit</button>				
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+{% endblock %}
+{% block javascript %}
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+{% endblock %}

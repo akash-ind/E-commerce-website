@@ -1,0 +1,74 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Home
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Sell online stationery and prints document, with no delivery charges">
+{% endblock %}
+{% block login %}
+{% if id is False %}
+<a class="nav-item nav-link btn btn-outline-primary mr-2" href="{% url 'login:login' %}">Login</a>
+<a class="nav-item nav-link btn btn-outline-primary" href="{% url 'login:register' %}">Register</a>
+{% elif id is True %}
+<a class="nav-item nav-link btn btn-outline-primary" href="{% url 'login:logout' %}">Logout</a>
+{% else %}
+{% endif %}
+{% endblock %}
+{% block about-us %}
+<div class="container mb-4">
+	<div class="row">
+		<div class="text-center">
+			<h3>About Us:</h3>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-sm-12 col-md-8">
+			<p class="text-success">This website is made as an effort to fight the Covid-19 pandemic.
+				To help Students whose online classes has started. We tried to offer you stationery items right at your home without any extra delivery charges.</p> 
+		</div>
+	</div>
+	<div class="row">
+		<h3>Currently Delievering In:</h3>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">Sagarpur</li>
+				<li class="list-group-item">Indra Park</li>
+				<li class="list-group-item">Kailash Puri</li>
+				<li class="list-group-item">Janakpuri</li>
+			</ul>
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block features %}
+<div class="row justify-content-around mb-4">
+	<div class="col-md-4 col-sm-6">
+		<div class="card h-100">
+			{% load static %}
+			<img src="{% static 'login/images/printing.jpg' %}" class="img-fluid card-img-top" alt="Print Now"/>
+			<h5 class="card-title mt-2">Print your document</h5>
+			<a class="card-link btn btn-outline-success" href="{% url 'print:upload' %}">Print Now</a>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<div class="card h-100">
+			{% load static %}
+			<img src="{% static 'login/images/stationery.jpeg' %}" class="img-fluid card-img-top" alt="stationery"/>
+			<h5 class="card-title mt-2">Order Online Stationery</h5>
+			<a class="card-link btn btn-outline-success" href="{% url 'shop:show' %}">Buy Now</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block footer %}
+	<footer>
+		<div class="text-center bg-dark">
+			<h5 class="text-white">Any Query?</h5>
+			<p class="text-white">Email us at krishstationers12@gmail.com</p>
+		</div>
+	</footer>
+{% endblock %}

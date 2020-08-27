@@ -1,0 +1,34 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Custom Order
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="nofollow, noindex" >
+{% endblock %}
+{% block login %}
+<a class="nav-item nav-link btn btn-outline-primary" href="{% url 'serve:logout' %}">Logout</a>
+{% endblock %}
+{% block about-us %}
+<table class="table">
+	<thead class="table-light">
+		<tr>
+			<th>Username</th>
+			<th>Address</th>
+			<th>Delivered</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for ob in obs %}
+		<tr>
+			<form method="POST" action="{% url 'serve:expand-custom' %}">
+				{% csrf_token %}
+				<input type="hidden" name="id" value="{{ob.id}}">
+			<td><button class="btn-link" type="submit">{{ob.user.name}}</button></td>
+			</form>
+			<td>{{ob.address}}</td>
+			<td><a href="{% url 'serve:delivered' id=ob.id %}" class="btn btn-danger">Delivered</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

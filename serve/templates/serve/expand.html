@@ -1,0 +1,48 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Process Order
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="nofollow, noindex" >
+{% endblock %}
+{% block about-us %}
+<div class="row justify-content-center">
+	<div class="col">
+		<p><b>Username:<b> {{ob.user.name}}</p>
+		<p><b>Address:</b> {{ob.address}}</p>
+		<p><b>Phone no:</b> {{ob.user.phone_no}}</p>
+		<p><b>Products:</b></p>
+		{% for order in ob.shop_order.all %}
+		<div class="ml-5">
+			<p>Name= {{order.product.name}}</p> 
+			<p>Price= {{order.product.prices}}</p>
+			<p>Brand= {{order.brand}}</p>
+			<p>Count= {{order.count}}</p>
+		</div>
+		{% endfor %}
+		<p><b>Prints:</b></p>
+		{% for prints in ob.print_order.all %}
+		<div class="ml-5">
+			<p>name={{print.name_of_file}}</p>
+			<p>copies={{print.copies}}</p>
+			<p>color={{print.color}}</p>
+			<p>pages={{print.pages}}</p>
+			<p>printing price={{print.price}}</p>
+		</div>
+		<hr class="bg-primary"/>
+		{% endfor %}
+		<p><b>Shipping Price:</b> {{ob.shipping_price}}</p>
+		<p><b>Method:</b> {{ob.method}}</p>
+		<p><b>Total Price:</b> {{ob.price}}</p>
+		<form method="POST" action="{% url 'serve:cancel-order' %}">
+			{% csrf_token %}
+			<input type="hidden" name="id" value="{{ob.order_id}}" />
+		<button class="btn btn-outline-danger">Cancel</button>
+		</form>
+		<form action="{% url 'serve:process' %}" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="order" value="{{ob.order_id}}" />
+		<td><button type="submit" class="btn-outline-danger btn">Delivered</button></td>
+		</form>
+</div>
+{% endblock %}

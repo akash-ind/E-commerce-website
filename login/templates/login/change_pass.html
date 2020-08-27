@@ -1,0 +1,25 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Reset Password
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Change Passwords" >
+{% endblock %}
+{% block features %}
+<div class="row justify-content-center">
+	<div class="col-lg-5 col-sm-8">
+		<form method="Post" action="{% url 'login:change_pass' id %}">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="password">
+					Enter new password					
+				</label>
+				<input type="password" class="form-control" name="password" id="password">
+			</div>
+			<div class="form-group">
+				<input type="hidden" name="id" value={{id}} id="id"/>
+				<button class="btn-outline-secondary" type="submit">Change</button>			
+		</form>		
+	</div>
+</div>
+{% endblock %}

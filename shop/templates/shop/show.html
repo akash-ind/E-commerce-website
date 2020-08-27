@@ -1,0 +1,28 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Products
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Category" >
+{% endblock %}
+{% load static %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'shop/show.css' %}">
+{% endblock %}
+{% block features %}
+<div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-4">
+	{% for ob in obs %}
+	<div class="col mb-2">
+		<div class="card h-100">
+			<img src="{{ ob.category_image.url }}" class="card-img-top img-fluid" alt="{{ob.category_name}}" />
+			<div class="card-body">
+				<a href="{% url 'shop:category_products' category=ob.slug %}" class="card-link">{{ob.category_name}}</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<hr />
+{% endblock %}
+
+

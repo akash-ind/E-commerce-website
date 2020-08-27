@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}
+	{% endblock %}</title>
+	{% load static %}
+	{% block meta %}
+	{% endblock %}
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/png" href="{% static 'login/images/favicon.ico' %}"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-width=no">
+	<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	{% block stylesheet %}
+	{% endblock %}
+</head>
+<body>
+	{% include 'html/warning_Verified.html' %}
+	<nav class="navbar-nav navbar-expand-md navbar-light bg-light mb-lg-3 mb-sm-2">
+		<a class="navbar-brand ml-lg-3 ml-sm-1" href="{% url 'login:home' %}">Krish Stationers</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#login" aria-expanded="false"
+		aria-label="toggle-navigation"><span class="navbar-toggler-icon"></span></button>
+		<div class="collapse navbar-collapse justify-content-end" id="login">
+			<nav class="navbar navbar-nav">
+				{% include 'html/account.html' %}
+				{% include 'html/cart.html' %}
+			{% block login %}
+			{% endblock %}
+			</nav>
+		</div>
+	</nav>
+	<section class="container">
+		{% block about-us %}
+		{% endblock %}
+	</section>
+	<section class="container justify-content-around mb-4">
+		{% block features %}
+		{% endblock %}
+	</section>
+	{% block footer %}
+	{% endblock %}
+	{% block javascript %}
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	{% endblock %}
+</body>
+</html>

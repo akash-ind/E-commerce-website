@@ -1,0 +1,22 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Register
+{% endblock %}
+{% block features %}
+<div class="row justify-content-center">
+<div class="col-sm-8 col-md-6">	
+	<div class="card">
+		<div class="card-body">
+			<form method="POST" action="{% url 'login:register' %}">
+				{% csrf_token %}
+				{% include 'html/form-template.html' with form=form1 %}
+				{% include 'html/form-template.html' with form=form2 %}
+				{% if warning %}
+					<small class="text-muted card-text">{{warning}}</small>
+				{% endif %}
+				<button class="btn btn-outline-primary text-center">Register</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

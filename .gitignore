@@ -1,0 +1,9 @@
+# this ignores the virtual environment
+**/local_settings.py
+!__init__.py
+**/__pycache__/
+*.logs
+db.sqlite3
+Procfile
+procfile.sh
+.env

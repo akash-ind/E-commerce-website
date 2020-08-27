@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Merchant Check Out Page</title>
+   </head>
+   <body>
+      <center>
+         <h1>Please do not refresh this page...</h1>
+      </center>
+      <form method="post" action="https://securegw-stage.paytm.in/order/process" name="paytm">
+         <table border="1">
+            <tbody>
+               <input type="hidden" name="MID" value="{{para.mid}}">
+               <input type="hidden" name="WEBSITE" value="{{para.website}}">
+               <input type="hidden" name="ORDER_ID" value="{{para.order_id}}">
+               <input type="hidden" name="CUST_ID" value="{{para.customer_id}}">
+               <input type="hidden" name="MOBILE_NO" value="{{para.mobile_no}}">
+               <input type="hidden" name="INDUSTRY_TYPE_ID" value="{{para.industry_type_id}}">
+               <input type="hidden" name="CHANNEL_ID" value="{{para.channel_id}}">
+               <input type="hidden" name="TXN_AMOUNT" value="{{para.txn_amount}}">
+               <input type="hidden" name="CALLBACK_URL" value="{{para.callback_url}}">
+               <input type="hidden" name="CHECKSUMHASH" value="{{para.checksum}}">
+            </tbody>
+         </table>
+         <script type="text/javascript">
+            document.paytm.submit();
+         </script>
+      </form> 
+   </body>
+</html>

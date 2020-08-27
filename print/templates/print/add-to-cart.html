@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adding To Cart</title>
+</head>
+<body>
+	<form action="{% url 'shop:add-in-cart' %}" method="POST" name="carting">
+		{% csrf_token %}
+		<input type="hidden" name="type" value="P">
+		<input type="hidden" name="print_id" value="{{print_id}}">
+	</form>
+	<script type="text/javascript">
+		document.carting.submit();
+	</script>
+</body>
+</html>

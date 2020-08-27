@@ -1,0 +1,38 @@
+{% extends 'html/init.html' %}
+{% block title %}
+Orders
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="nofollow, noindex" >
+{% endblock %}
+{% block login %}
+<a class="nav-item nav-link btn btn-outline-primary" href="{% url 'serve:logout' %}">Logout</a>
+{% endblock %}
+{% block features %}
+<table class="table">
+	<thead class="thead-light">
+		<tr>
+			<th>UserName</th>
+			<th>Method</th>
+			<th>Processed</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for ob in objects %}
+		<tr>
+			<form action="{% url 'serve:expand-order' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="id" value="{{ob.order_id}}" />
+			<td><button class="btn-link" type="submit">{{ob.user.name}}</button></td>
+			</form>
+			<td>{{ob.method}}</td>
+			<form action="{% url 'serve:process' %}" method="POST">
+				{% csrf_token %}
+			<input type="hidden" name="order" value="{{ob.order_id}}" />
+			<td><button type="submit" class="btn-outline-danger btn">Delivered</button></td>
+			</form>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

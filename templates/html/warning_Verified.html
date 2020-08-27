@@ -1,0 +1,13 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			{% if id is True %}
+			{% if verified is False %}
+				<p class="text-warning mr-lg-3 mr-2 d-inline">Your account is not verified. You won't be able to use our services. Click Here to Activate you account</p>
+				<a class="btn btn-outline-secondary" href="{% url 'login:verify_user' %}">Activate</a>
+			{% endif %}
+			{% endif %}
+		</div>
+	</div>
+</div>
+
